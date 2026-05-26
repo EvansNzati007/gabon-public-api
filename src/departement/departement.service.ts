@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Departement } from './departement.entity';
 import { Repository } from 'typeorm';
@@ -24,6 +24,10 @@ export class DepartementService {
   }
 
   async getDepartementById(id: number){
-    return this.repo.findOne({ where: { id } });
+    const departement = await this.repo.findOne({ where: { id } });
+    if (!departement) {
+      throw new NotFoundException(`Departement with id ${id} not found`);
+    }
+    return departement;
   }
 }

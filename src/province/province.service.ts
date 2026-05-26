@@ -1,5 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { LOGGER_CONFIG } from '../logger/logger.module';
+
 import type { ILogger } from '../logger/logger.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Province } from './province.entity';
@@ -17,13 +18,28 @@ export class ProvinceService {
   }
 
   async getProvinceByCode(codeAdministratif: string) {
-    return this.repo.findOne({ where: { codeAdministratif } });
+    //return this.repo.findOne({ where: { codeAdministratif } });
+    const province = await this.repo.findOne({ where: { codeAdministratif } });
+    if (!province) {
+      this.logger.warn(`Province with code ${codeAdministratif} not found`);
+      throw new NotFoundException(
+        `Province with code ${codeAdministratif} not found`,
+      );
+    }
+    return province;
   }
 
-  async getProvinceByCodeAndDepartment(codeAdministratif: string){
-    return this.repo.findOne({
+  async getProvinceByCodeAndDepartment(codeAdministratif: string) {
+    const province = await this.repo.findOne({
       where: { codeAdministratif },
       relations: ['departements'],
     });
+    if (!province) {
+      this.logger.warn(`Province with code ${codeAdministratif} not found`);
+      throw new NotFoundException(
+        `Province with code ${codeAdministratif} not found`,
+      );
+    }
+    return province;
   }
 }
