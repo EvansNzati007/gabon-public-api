@@ -1,0 +1,274 @@
+import { DataSource } from 'typeorm';
+import { Province } from '../province/province.entity';
+import { Departement } from '../departement/departement.entity';
+
+const AppDataSource = new DataSource({
+  type: 'sqlite',
+  database: process.env.DB_NAME || 'db.sqlite',
+  entities: [Province, Departement],
+  synchronize: true,
+});
+
+const provincesData = [
+  {
+    codeAdministratif: 'G1',
+    nom: 'Estuaire',
+    code: 'ES',
+    chefLieu: 'Akanda',
+    population: 868000,
+    superficie: 20740,
+    departements: [
+      { nom: 'Komo', chefLieu: 'Kango', population: 0, superficie: 0 },
+      { nom: 'Komo-Mondah', chefLieu: 'Ntoum', population: 0, superficie: 0 },
+      { nom: 'Noya', chefLieu: 'Cocobeach', population: 0, superficie: 0 },
+      {
+        nom: 'Cap Estérias',
+        chefLieu: 'Cap Estérias',
+        population: 0,
+        superficie: 0,
+      },
+      { nom: 'Komo-Océan', chefLieu: 'Ndzomoe', population: 0, superficie: 0 },
+    ],
+  },
+  {
+    codeAdministratif: 'G2',
+    nom: 'Haut-Ogooué',
+    code: 'HO',
+    chefLieu: 'Franceville',
+    population: 247000,
+    superficie: 36547,
+    departements: [
+      { nom: 'Mpassa', chefLieu: 'Franceville', population: 0, superficie: 0 },
+      {
+        nom: 'Lemboumbi-Leyou',
+        chefLieu: 'Moanda',
+        population: 0,
+        superficie: 0,
+      },
+      {
+        nom: 'Sébé-Brikolo',
+        chefLieu: 'Okondja',
+        population: 0,
+        superficie: 0,
+      },
+      { nom: 'Plateaux', chefLieu: 'Lékoni', population: 0, superficie: 0 },
+      {
+        nom: 'Lékoni-Lékori',
+        chefLieu: 'Akiéni',
+        population: 0,
+        superficie: 0,
+      },
+      { nom: 'Lékoko', chefLieu: 'Bakoumba', population: 0, superficie: 0 },
+      {
+        nom: 'Djouori-Agnili',
+        chefLieu: 'Bongoville',
+        population: 0,
+        superficie: 0,
+      },
+      { nom: 'Djoué', chefLieu: 'Onga', population: 0, superficie: 0 },
+      { nom: 'Bayi-Brikolo', chefLieu: 'Aboumi', population: 0, superficie: 0 },
+      {
+        nom: 'Ondouboulou',
+        chefLieu: 'Boumango',
+        population: 0,
+        superficie: 0,
+      },
+      {
+        nom: 'Lékabi-Léwolo',
+        chefLieu: 'Ngouoni',
+        population: 0,
+        superficie: 0,
+      },
+    ],
+  },
+  {
+    codeAdministratif: 'G3',
+    nom: 'Moyen-Ogooué',
+    code: 'MO',
+    chefLieu: 'Lambaréné',
+    population: 69000,
+    superficie: 18535,
+    departements: [
+      { nom: 'Abanga-Bigné', chefLieu: 'Ndjolé', population: 0, superficie: 0 },
+      {
+        nom: 'Ogooué et des Lacs',
+        chefLieu: 'Lambaréné',
+        population: 0,
+        superficie: 0,
+      },
+    ],
+  },
+  {
+    codeAdministratif: 'G4',
+    nom: 'Ngounié',
+    code: 'NG',
+    chefLieu: 'Mouila',
+    population: 99000,
+    superficie: 37750,
+    departements: [
+      { nom: 'Mougoutsi', chefLieu: 'Mouila', population: 0, superficie: 0 },
+      {
+        nom: 'Tsamba-Magotsi',
+        chefLieu: 'Fougamou',
+        population: 0,
+        superficie: 0,
+      },
+      {
+        nom: 'Boumi-Louetsi',
+        chefLieu: 'Mbigou',
+        population: 0,
+        superficie: 0,
+      },
+      { nom: 'Dola', chefLieu: 'Ndendé', population: 0, superficie: 0 },
+      { nom: 'Douya-Onoye', chefLieu: 'Ndoutou', population: 0, superficie: 0 },
+      {
+        nom: 'Louetsi-Wano',
+        chefLieu: 'Lebamba',
+        population: 0,
+        superficie: 0,
+      },
+      { nom: 'Ndolou', chefLieu: 'Mandji', population: 0, superficie: 0 },
+      { nom: 'Ogoulou', chefLieu: 'Mimongo', population: 0, superficie: 0 },
+      {
+        nom: 'Louetsi-Bibaka',
+        chefLieu: 'Malinga',
+        population: 0,
+        superficie: 0,
+      },
+    ],
+  },
+  {
+    codeAdministratif: 'G5',
+    nom: 'Nyanga',
+    code: 'NY',
+    chefLieu: 'Tchibanga',
+    population: 53000,
+    superficie: 21285,
+    departements: [
+      { nom: 'Mougoutsi', chefLieu: 'Tchibanga', population: 0, superficie: 0 },
+      { nom: 'Basse-Banio', chefLieu: 'Mayumba', population: 0, superficie: 0 },
+      { nom: 'Douigny', chefLieu: 'Moabi', population: 0, superficie: 0 },
+      { nom: 'Doutsila', chefLieu: 'Mabanda', population: 0, superficie: 0 },
+      { nom: 'Haute-Banio', chefLieu: 'Ndindi', population: 0, superficie: 0 },
+      {
+        nom: 'Mongo',
+        chefLieu: 'Moulingui-Binza',
+        population: 0,
+        superficie: 0,
+      },
+    ],
+  },
+  {
+    codeAdministratif: 'G6',
+    nom: 'Ogooué-Ivindo',
+    code: 'OI',
+    chefLieu: 'Makokou',
+    population: 64000,
+    superficie: 46075,
+    departements: [
+      { nom: 'Ivindo', chefLieu: 'Makokou', population: 0, superficie: 0 },
+      { nom: 'Zadié', chefLieu: 'Mékambo', population: 0, superficie: 0 },
+      { nom: 'Lopé', chefLieu: 'Booué', population: 0, superficie: 0 },
+      { nom: 'Mvoung', chefLieu: 'Ovan', population: 0, superficie: 0 },
+    ],
+  },
+  {
+    codeAdministratif: 'G7',
+    nom: 'Ogooué-Lolo',
+    code: 'OL',
+    chefLieu: 'Koulamoutou',
+    population: 65000,
+    superficie: 25380,
+    departements: [
+      {
+        nom: 'Lolo-Bouénguidi',
+        chefLieu: 'Koulamoutou',
+        population: 0,
+        superficie: 0,
+      },
+      {
+        nom: 'Mulundu',
+        chefLieu: 'Lastoursville',
+        population: 0,
+        superficie: 0,
+      },
+      {
+        nom: 'Lombo-Bouénguidi',
+        chefLieu: 'Pana',
+        population: 0,
+        superficie: 0,
+      },
+      {
+        nom: 'Offoué-Onoye',
+        chefLieu: 'Iboundji',
+        population: 0,
+        superficie: 0,
+      },
+    ],
+  },
+  {
+    codeAdministratif: 'G8',
+    nom: 'Ogooué-Maritime',
+    code: 'OM',
+    chefLieu: 'Port-Gentil',
+    population: 176000,
+    superficie: 22890,
+    departements: [
+      { nom: 'Bendjé', chefLieu: 'Port-Gentil', population: 0, superficie: 0 },
+      { nom: 'Etimboué', chefLieu: 'Omboué', population: 0, superficie: 0 },
+      { nom: 'Ndougou', chefLieu: 'Gamba', population: 0, superficie: 0 },
+    ],
+  },
+  {
+    codeAdministratif: 'G9',
+    nom: 'Woleu-Ntem',
+    code: 'WT',
+    chefLieu: 'Oyem',
+    population: 154000,
+    superficie: 38465,
+    departements: [
+      { nom: 'Woleu', chefLieu: 'Oyem', population: 0, superficie: 0 },
+      { nom: 'Ntem', chefLieu: 'Bitam', population: 0, superficie: 0 },
+      { nom: 'Okano', chefLieu: 'Mitzic', population: 0, superficie: 0 },
+      { nom: 'Haut-Ntem', chefLieu: 'Minvoul', population: 0, superficie: 0 },
+      { nom: 'Haut-Como', chefLieu: 'Medouneu', population: 0, superficie: 0 },
+    ],
+  },
+];
+
+async function seed() {
+  await AppDataSource.initialize();
+  console.log('📦 Connexion DB établie');
+
+  const provinceRepo = AppDataSource.getRepository(Province);
+  const departementRepo = AppDataSource.getRepository(Departement);
+
+  // Nettoyage
+  await departementRepo.clear();
+  await provinceRepo.clear();
+  console.log('🧹 Tables vidées');
+
+  for (const data of provincesData) {
+    const { departements, ...provinceFields } = data;
+
+    const province = provinceRepo.create(provinceFields);
+    await provinceRepo.save(province);
+
+    for (const deptData of departements) {
+      const dept = departementRepo.create({ ...deptData, province });
+      await departementRepo.save(dept);
+    }
+
+    console.log(
+      `✅ ${province.nom} (${province.codeAdministratif}) + ${departements.length} départements`,
+    );
+  }
+
+  console.log('🎉 Seed terminé — 9 provinces, 49 départements');
+  await AppDataSource.destroy();
+}
+
+seed().catch((err) => {
+  console.error('❌ Erreur seed:', err);
+  process.exit(1);
+});
