@@ -5,7 +5,9 @@ import {
   Param,
   ParseIntPipe,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
+import { CacheKey, CacheInterceptor } from '@nestjs/cache-manager';
 import { PaginationDto } from './dto/departement-dto';
 import { DepartementService } from './departement.service';
 import { LOGGER_CONFIG } from '../logger/logger.module';

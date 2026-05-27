@@ -1,5 +1,16 @@
-import { Controller, Get, Inject, Param } from '@nestjs/common';
-
+import {
+  Controller,
+  Get,
+  Inject,
+  Param,
+  UseInterceptors,
+} from '@nestjs/common';
+import {
+  CacheModule,
+  CacheKey,
+  CacheTTL,
+  CacheInterceptor,
+} from '@nestjs/cache-manager';
 import { LOGGER_CONFIG } from '../logger/logger.module';
 import type { ILogger } from '../logger/logger.interface';
 import { ProvinceService } from './province.service';

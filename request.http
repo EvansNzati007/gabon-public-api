@@ -1,2 +1,6 @@
-GET http://localhost:3000/provinces/G99
+GET http://localhost:3000/departements/5
+Content-Type: application/json
+
+###
+GET http://localhost:3000/provinces
 Content-Type: application/json
