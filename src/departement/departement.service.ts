@@ -14,12 +14,13 @@ export class DepartementService {
   ) {}
 
   async getDepartements(paginationDto: PaginationDto) {
-    const cacheKey = `departements:${paginationDto.limit}:${paginationDto.offset}`;
+    const { limit = 10, offset = 0 } = paginationDto;
+    const cacheKey = `departements:${limit}:${offset}`;
     const cachedData = await this.cacheManager.get(cacheKey);
     if (cachedData) {
       return cachedData;
     }
-    const { limit = 10, offset = 0 } = paginationDto;
+
     const [departements, total] = await this.repo.findAndCount({
       take: limit,
       skip: offset,

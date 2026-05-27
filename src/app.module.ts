@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CacheModule } from '@nestjs/cache-manager';
+import { createKeyv } from '@keyv/redis';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -17,20 +18,31 @@ import { Departement } from './departement/departement.entity';
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
-    CacheModule.register({
+
+    // Configuration Asynchrone et Sécurisée du Cache
+    CacheModule.registerAsync({
       isGlobal: true,
-      ttl: 5000, // Durée de vie par défaut en millisecondes (Ex: 5 secondes)
-      max: 100, // Nombre maximum d'éléments en mémoire cache
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        const redisUrl =
+          config.get<string>('REDIS_URL') || 'redis://localhost:6379';
+
+        return {
+          ttl: 5000, // 5 secondes
+          max: 100,
+          stores: [createKeyv(redisUrl)],
+        };
+      },
     }),
+
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-
       useFactory: (config: ConfigService) => {
         return {
           type: 'sqlite',
           database: config.get<string>('DB_NAME'),
           entities: [Province, Departement],
-          synchronize: true, // à eviter en prod
+          synchronize: true, // À éviter en production
         };
       },
     }),
