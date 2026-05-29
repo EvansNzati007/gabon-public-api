@@ -13,7 +13,9 @@ import {
 } from '@nestjs/cache-manager';
 import { LOGGER_CONFIG } from '../logger/logger.module';
 import type { ILogger } from '../logger/logger.interface';
+import { plainToInstance } from 'class-transformer';
 import { ProvinceService } from './province.service';
+import { ProvinceResponseDto } from './dto/ProvinceResponseDto';
 
 @Controller('provinces')
 export class ProvinceController {
@@ -23,15 +25,29 @@ export class ProvinceController {
   ) {}
 
   @Get()
-  findAll() {
+  async findAll() {
     this.logger.log('Finding all provinces');
-    return this.provinceService.getProvinces();
+    // return this.provinceService.getProvinces();
+
+    return plainToInstance(
+      ProvinceResponseDto,
+      await this.provinceService.getProvinces(),
+      {
+        excludeExtraneousValues: true,
+      },
+    );
   }
 
   @Get(':codeAdministratif')
-  findOne(@Param('codeAdministratif') codeAdministratif: string) {
+  async findOne(@Param('codeAdministratif') codeAdministratif: string) {
     this.logger.log(`Finding province with code: ${codeAdministratif}`);
-    return this.provinceService.getProvinceByCode(codeAdministratif);
+    // return this.provinceService.getProvinceByCode(codeAdministratif);
+    const province =
+      await this.provinceService.getProvinceByCode(codeAdministratif);
+
+    return plainToInstance(ProvinceResponseDto, province, {
+      excludeExtraneousValues: true,
+    });
   }
 
   @Get(':codeAdministratif/departements')

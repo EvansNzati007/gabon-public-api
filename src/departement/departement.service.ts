@@ -16,18 +16,22 @@ export class DepartementService {
   async getDepartements(paginationDto: PaginationDto) {
     const { limit = 10, offset = 0 } = paginationDto;
     const cacheKey = `departements:${limit}:${offset}`;
-    const cachedData = await this.cacheManager.get(cacheKey);
+    // Indiquez le type attendu au gestionnaire de cache
+    const cachedData = await this.cacheManager.get<{
+      items: Departement[];
+      count: number;
+    }>(cacheKey);
     if (cachedData) {
       return cachedData;
     }
 
-    const [departements, total] = await this.repo.findAndCount({
+    const [items, total] = await this.repo.findAndCount({
       take: limit,
       skip: offset,
     });
 
     const result = {
-      departements,
+      items,
       count: total,
     };
 
@@ -38,9 +42,12 @@ export class DepartementService {
 
   async getDepartementById(id: number) {
     const cacheKey = `departement:${id}`;
-    const cachedDepartement = await this.cacheManager.get(cacheKey);
-    if (cachedDepartement) {
-      return cachedDepartement;
+    const cachedData = await this.cacheManager.get<{
+      departements: Departement[];
+      count: number;
+    }>(cacheKey);
+    if (cachedData) {
+      return cachedData;
     }
     const departement = await this.repo.findOne({ where: { id } });
     if (!departement) {

@@ -1,6 +1,6 @@
-GET http://localhost:3000/departements/5
+GET http://localhost:3000/v1/departements?limit=5&offset=0
 Content-Type: application/json
 
 ###
-GET http://localhost:3000/provinces/G9
+GET http://localhost:3000/v1/provinces/G1
 Content-Type: application/json

@@ -52,6 +52,8 @@ pids
 *.pid
 *.seed
 *.pid.lock
+recap.md
+note-response-dto-typescript.md
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
